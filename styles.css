@@ -71,23 +71,28 @@ img {
   --toggle-width: clamp(2rem, 1.0458rem + 4.0712vw, 3rem);
   --toggle-radius: clamp(0.75rem, 0.2729rem + 2.0356vw, 1.25rem);
   --toggle-padding: 0.25rem;
+  --fluid-18-28: clamp(1.125rem, 0.5286rem + 2.5445vw, 1.75rem);
+  --label-size: clamp(2.5rem, 1.5458rem + 4.0712vw, 3.5rem);
 }
 
 body {
   background: var(--bg-img);
   font-family: var(--font-base);
+  color: var(--text-color);
 }
 
 html {
   --bg-img: var(--bg-mobile-light);
   --icon-sun: var(--icon-sun-light);
   --icon-moon: var(--icon-moon-light);
+  --text-color: var(--blue-900);
 }
 
 html:has(.dark-toggle input:checked) {
   --bg-img: var(--bg-mobile-dark);
   --icon-sun: var(--icon-sun-dark);
   --icon-moon: var(--icon-moon-dark);
+  --text-color: white;
 }
 
 @media (min-width: 768px) {
@@ -108,6 +113,49 @@ html:has(.dark-toggle input:checked) {
   html:has(.dark-toggle input:checked) {
     --bg-img: var(--bg-desktop-dark);
   }
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 16px;
+  padding-inline: 24px; /* fix this for tablet and desktop*/
+  align-items: center;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-weight: 500;
+  font-size: var(--fluid-18-28);
+}
+
+.icon::before {
+  content: "";
+  display: block;
+  block-size: var(--label-size);
+  inline-size: var(--label-size);
+  border-radius: 4px;
+  background: var(--icon-label) no-repeat center/71.43%,
+    linear-gradient(var(--icon-color), var(--icon-color));
+}
+
+.icon-accessibility {
+  --icon-color: var(--purple-100);
+  --icon-label: url("assets/images/icon-accessibility.svg");
+}
+.icon-css {
+  --icon-color: var(--green-100);
+  --icon-label: url("assets/images/icon-css.svg");
+}
+.icon-html {
+  --icon-color: var(--orange-50);
+  --icon-label: url("assets/images/icon-html.svg");
+}
+.icon-javascript {
+  --icon-color: var(--blue-50);
+  --icon-label: url("assets/images/icon-js.svg");
 }
 
 .dark-toggle {
@@ -139,7 +187,6 @@ html:has(.dark-toggle input:checked) {
     );
   }
   & label {
-    position: relative;
     display: block;
     inline-size: var(--toggle-width);
     block-size: var(--toggle-height);
@@ -149,8 +196,8 @@ html:has(.dark-toggle input:checked) {
 
     &::before {
       content: "";
+      display: block;
       transition: all 200ms ease-in-out;
-      position: absolute;
       inline-size: var(--toggle-radius);
       block-size: var(--toggle-radius);
       border-radius: 50%;
