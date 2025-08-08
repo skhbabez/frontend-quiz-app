@@ -65,8 +65,8 @@ img {
   --icon-moon-light: url("assets/images/icon-moon-dark.svg");
   --icon-sun-dark: url("assets/images/icon-sun-light.svg");
   --icon-sun-light: url("assets/images/icon-sun-dark.svg");
-  --toggle-icon-radius: 1rem;
-  --fluid-8-16: clamp(0.5rem, 0.0229rem + 2.0356vw, 1rem);
+  --toggle-icon-radius: clamp(1rem, 0.5229rem + 2.0356vw, 1.5rem);
+  --toggle-gap: clamp(0.5rem, 0.0229rem + 2.0356vw, 1rem);
   --toggle-height: clamp(1.25rem, 0.7729rem + 2.0356vw, 1.75rem);
   --toggle-width: clamp(2rem, 1.0458rem + 4.0712vw, 3rem);
   --toggle-radius: clamp(0.75rem, 0.2729rem + 2.0356vw, 1.25rem);
@@ -99,6 +99,7 @@ html:has(.dark-toggle input:checked) {
     --bg-img: var(--bg-tablet-dark);
   }
 }
+
 @media (min-width: 1280px) {
   html {
     --bg-img: var(--bg-desktop-light);
@@ -111,7 +112,7 @@ html:has(.dark-toggle input:checked) {
 
 .dark-toggle {
   display: flex;
-  gap: var(--fluid-8-16);
+  gap: var(--toggle-gap);
   align-items: center;
   &::before {
     content: "";
