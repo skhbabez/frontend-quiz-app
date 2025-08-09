@@ -18,6 +18,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  outline: red solid 1px;
 }
 
 img {
@@ -73,6 +74,13 @@ img {
   --toggle-padding: 0.25rem;
   --fluid-18-28: clamp(1.125rem, 0.5286rem + 2.5445vw, 1.75rem);
   --label-size: clamp(2.5rem, 1.5458rem + 4.0712vw, 3.5rem);
+  --fluid-16-32: clamp(1rem, 0.0458rem + 4.0712vw, 2rem);
+  --fluid-12-24: clamp(0.75rem, 0.0344rem + 3.0534vw, 1.5rem);
+  --fluid-16-24: clamp(1rem, 0.25rem + 1.5625vw, 1.5rem); /* to 1280*/
+  --font-weight-light: 300;
+  --font-weight-medium: 500;
+  --fluid-40-64: clamp(2.5rem, 1.0687rem + 6.1069vw, 4rem);
+  --fluid-14-20: clamp(0.875rem, 0.5172rem + 1.5267vw, 1.25rem);
 }
 
 body {
@@ -86,6 +94,8 @@ html {
   --icon-sun: var(--icon-sun-light);
   --icon-moon: var(--icon-moon-light);
   --text-color: var(--blue-900);
+  --btn-color: var(--blue-900);
+  --btn-bg-color: white;
 }
 
 html:has(.dark-toggle input:checked) {
@@ -93,41 +103,50 @@ html:has(.dark-toggle input:checked) {
   --icon-sun: var(--icon-sun-dark);
   --icon-moon: var(--icon-moon-dark);
   --text-color: white;
-}
-
-@media (min-width: 768px) {
-  html {
-    --bg-img: var(--bg-tablet-light);
-  }
-
-  html:has(.dark-toggle input:checked) {
-    --bg-img: var(--bg-tablet-dark);
-  }
-}
-
-@media (min-width: 1280px) {
-  html {
-    --bg-img: var(--bg-desktop-light);
-  }
-
-  html:has(.dark-toggle input:checked) {
-    --bg-img: var(--bg-desktop-dark);
-  }
+  --btn-color: white;
+  --btn-bg-color: var(--blue-850);
 }
 
 header {
   display: flex;
   justify-content: space-between;
   padding-block: 16px;
-  padding-inline: 24px; /* fix this for tablet and desktop*/
+
   align-items: center;
 }
+.quiz-container {
+  padding-inline: 24px; /*needs t be rwworked*/
+}
 
-.category-header {
+/* think of better ways to manage width*/
+.info-container {
+  width: 100%;
+}
+
+.content-container {
+  width: 100%;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fluid-40-64);
+
+  padding-block-start: 32px;
+}
+
+.category-container {
+  width: 100%;
+  & * + * {
+    margin-block-start: var(--fluid-16-24);
+  }
+}
+
+.logo {
   display: flex;
   align-items: center;
   gap: 16px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   font-size: var(--fluid-18-28);
 }
 
@@ -156,6 +175,55 @@ header {
 .icon-javascript {
   --icon-color: var(--blue-50);
   --icon-label: url("assets/images/icon-js.svg");
+}
+
+.welcome-card {
+  & h1 {
+    font-size: var(--fluid-40-64);
+    font-weight: var(--font-weight-light);
+    & span {
+      display: block;
+      font-weight: var(--font-weight-medium);
+    }
+  }
+  & p {
+    font-style: italic;
+    line-height: 1.5;
+    font-size: var(--fluid-14-20);
+    margin-block-start: 16px; /* for destop media query with 48px*/
+  }
+}
+
+.submit-btn {
+  padding: var(--fluid-16-32);
+  font-size: var(--fluid-18-28);
+  font-family: inherit;
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--fluid-12-24);
+  border: none;
+  background-color: var(--purple-600);
+  color: white;
+  box-shadow: 0px 16px 40px 0px rgba(143, 160, 193, 14%);
+  inline-size: 100%;
+  &:hover {
+    opacity: 50%;
+  }
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--fluid-16-32);
+  font-size: var(--fluid-18-28);
+  font-weight: var(--font-weight-medium);
+  font-family: inherit;
+  border: none;
+  background-color: var(--btn-bg-color);
+  color: var(--btn-color);
+  padding: var(--fluid-16-24); /*maybe mediaquery instead*/
+  border-radius: var(--fluid-12-24);
+  box-shadow: 0px 16px 40px 0px rgba(49, 62, 81, 14%);
+  inline-size: 100%;
 }
 
 .dark-toggle {
@@ -203,5 +271,40 @@ header {
       border-radius: 50%;
       background-color: white;
     }
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    --bg-img: var(--bg-tablet-light);
+  }
+
+  html:has(.dark-toggle input:checked) {
+    --bg-img: var(--bg-tablet-dark);
+  }
+}
+
+@media (min-width: 1280px) {
+  html {
+    --bg-img: var(--bg-desktop-light);
+  }
+
+  html:has(.dark-toggle input:checked) {
+    --bg-img: var(--bg-desktop-dark);
+  }
+
+  .quiz-container {
+    max-width: 1157px;
+  }
+
+  .main-container {
+    flex-direction: row;
+  }
+
+  .content-container {
+    max-inline-size: 564px;
+  }
+  .welcome-card p {
+    margin-block-start: 48px;
   }
 }

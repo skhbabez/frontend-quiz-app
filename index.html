@@ -14,74 +14,83 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <div class="category-header icon icon-css">
-        <!-- category- container -->
-        <p>Accessibility</p>
-      </div>
-      <div class="dark-toggle">
-        <!-- light/dark -->
-
-        <label>
-          <input type="checkbox" aria-label="turn on dark mode" />
-        </label>
-      </div>
-    </header>
     <main>
-      <article>
-        <div>
-          <!-- info container -->
-          <div>
-            <!-- title card -->
-            <h1>Welcome to the Frontend Quiz!</h1>
-            <p>Pick a subject to get started.</p>
+      <article class="quiz-container">
+        <header>
+          <div class="logo icon icon-css">
+            <!-- category- container -->
+            <p>Accessibility</p>
           </div>
-          <div>
-            <!-- question-info -->
-            <div>
-              <!-- progress-numeric -->
+          <div class="dark-toggle">
+            <!-- light/dark -->
+
+            <label>
+              <input type="checkbox" aria-label="turn on dark mode" />
+            </label>
+          </div>
+        </header>
+        <div class="main-container">
+          <div class="info-container">
+            <!-- info container -->
+            <div class="welcome-card">
+              <!-- title card -->
+              <h1>Welcome to the <span>Frontend Quiz!</span></h1>
+              <p>Pick a subject to get started.</p>
             </div>
-            <p>
-              <!-- question text -->
-            </p>
             <div>
-              <!-- progress-bar -->
+              <!-- question-info -->
+              <div>
+                <!-- progress-numeric -->
+              </div>
+              <p>
+                <!-- question text -->
+              </p>
+              <div>
+                <!-- progress-bar -->
+              </div>
+            </div>
+            <div style="display: none">
+              <!-- completed -->
+              <p>Quiz completed</p>
+              <p>You scored...</p>
             </div>
           </div>
-          <div>
-            <!-- completed -->
-            <p>Quiz completed</p>
-            <p>You scored...</p>
-          </div>
-        </div>
-        <div>
-          <!-- quiz container -->
-          <div>
-            <!-- categories -->
-            <ul>
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>JavaScript</li>
-              <li>Accessibility</li>
-            </ul>
-          </div>
-          <div>
-            <!-- answers -->
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
-            <buttom>Submit Answer</buttom>
-          </div>
-          <div>
-            <div>
-              <p>Accessibility</p>
-              <p>8</p>
-              <p>out of 10</p>
+          <div class="content-container">
+            <!-- quiz container -->
+            <div class="category-container">
+              <!-- categories -->
+
+              <button type="button" class="icon-btn icon icon-css">
+                <span>HTML</span>
+              </button>
+              <button type="button" class="icon-btn icon icon-css">
+                <span>CSS</span>
+              </button>
+              <button type="button" class="icon-btn icon icon-css">
+                <span>JavaScript</span>
+              </button>
+              <button type="button" class="icon-btn icon icon-css">
+                <span>Accessibility</span>
+              </button>
             </div>
-            <button>Play Again</button>
+            <div style="display: none">
+              <!-- answers -->
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+              <buttom>Submit Answer</buttom>
+            </div>
+            <div style="display: none">
+              <div>
+                <p>Accessibility</p>
+                <p>8</p>
+                <p>out of 10</p>
+              </div>
+              <button class="submit-btn">Play Again</button>
+            </div>
           </div>
         </div>
       </article>
