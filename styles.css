@@ -82,6 +82,8 @@ img {
   --fluid-40-64: clamp(2.5rem, 1.0687rem + 6.1069vw, 4rem);
   --fluid-14-20: clamp(0.875rem, 0.5172rem + 1.5267vw, 1.25rem);
   --fluid-32-40: clamp(2rem, 1.5229rem + 2.0356vw, 2.5rem);
+  --fluid-20-36: clamp(1.25rem, 0.2958rem + 4.0712vw, 2.25rem);
+  --fluid-24-40: clamp(1.5rem, 0.5458rem + 4.0712vw, 2.5rem);
 }
 
 body {
@@ -95,8 +97,8 @@ html {
   --icon-sun: var(--icon-sun-light);
   --icon-moon: var(--icon-moon-light);
   --text-color: var(--blue-900);
-  --btn-color: var(--blue-900);
   --btn-bg-color: white;
+  --bar-bg-color: white;
 }
 
 html:has(.dark-toggle input:checked) {
@@ -104,8 +106,8 @@ html:has(.dark-toggle input:checked) {
   --icon-sun: var(--icon-sun-dark);
   --icon-moon: var(--icon-moon-dark);
   --text-color: white;
-  --btn-color: white;
   --btn-bg-color: var(--blue-850);
+  --bar-bg-color: var(--blue-850);
 }
 
 header {
@@ -228,7 +230,7 @@ header {
   font-family: inherit;
   border: none;
   background-color: var(--btn-bg-color);
-  color: var(--btn-color);
+  color: inherit;
   padding: var(--fluid-16-24); /*maybe mediaquery instead*/
   border-radius: var(--fluid-12-24);
   box-shadow: 0px 16px 40px 0px rgba(49, 62, 81, 14%); /*fix for dark mode*/
@@ -273,6 +275,39 @@ header {
     --option-out-color: var(--red-500);
     --data-color: white;
     --answer-icon: url("assets/images/icon-incorrect.svg");
+  }
+}
+
+.question-container {
+  & p:first-of-type {
+    font-style: italic;
+    font-size: var(--fluid-14-20);
+  }
+  & p:last-of-type {
+    font-size: var(--fluid-20-36);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    margin-block-start: var(--fluid-16-24);
+  }
+  & .progress-bar {
+    margin-block-start: var(--fluid-24-40);
+  }
+}
+
+.progress-bar {
+  block-size: 16px;
+  background-color: var(--bar-bg-color);
+  border-radius: 999px;
+
+  align-items: center;
+  padding: 4px;
+  &::before {
+    content: "";
+    border-radius: 104px;
+    display: block;
+    block-size: 8px;
+    width: 50%;
+    background-color: var(--purple-600);
   }
 }
 
@@ -356,5 +391,9 @@ header {
   }
   .welcome-card p {
     margin-block-start: 48px;
+  }
+  .question-container .progress-bar {
+    /* still need better option for dektop*/
+    margin-block-start: 184px;
   }
 }
