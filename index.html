@@ -57,7 +57,7 @@
           </div>
           <div class="content-container">
             <!-- quiz container -->
-            <div class="category-container">
+            <div class="btn-container" style="display: none">
               <!-- categories -->
 
               <button type="button" class="icon-btn icon icon-css">
@@ -73,14 +73,31 @@
                 <span>Accessibility</span>
               </button>
             </div>
-            <div style="display: none">
+            <div class="btn-container">
               <!-- answers -->
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
+
+              <label class="icon-btn option-btn icon icon-data" data-icon="A">
+                <span>4,5:1</span>
+                <input disabled type="radio" name="answer" />
+              </label>
+              <label
+                class="icon-btn option-btn icon icon-data correct"
+                data-icon="B"
+              >
+                <span>4,5:1</span>
+                <input disabled type="radio" name="answer" />
+              </label>
+              <label
+                class="icon-btn option-btn icon icon-data false"
+                data-icon="C"
+              >
+                <span>4,5:1</span>
+                <input type="radio" name="answer" />
+              </label>
+              <label class="icon-btn option-btn icon icon-data" data-icon="D">
+                <span>4,5:1</span>
+                <input type="radio" name="answer" />
+              </label>
               <buttom>Submit Answer</buttom>
             </div>
             <div style="display: none">
