@@ -18,7 +18,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  outline: red solid 1px;
+  /* outline: red solid 1px; */
 }
 
 img {
@@ -84,6 +84,10 @@ img {
   --fluid-32-40: clamp(2rem, 1.5229rem + 2.0356vw, 2.5rem);
   --fluid-20-36: clamp(1.25rem, 0.2958rem + 4.0712vw, 2.25rem);
   --fluid-24-40: clamp(1.5rem, 0.5458rem + 4.0712vw, 2.5rem);
+  --fluid-32-48: clamp(2rem, 1.0458rem + 4.0712vw, 3rem);
+  --fluid-16-40: clamp(1rem, -0.4313rem + 6.1069vw, 2.5rem);
+  --fluid-88-144: clamp(5.5rem, 2.1603rem + 14.2494vw, 9rem);
+  --fluid-18-24: clamp(1.125rem, 0.7672rem + 1.5267vw, 1.5rem);
 }
 
 body {
@@ -99,6 +103,7 @@ html {
   --text-color: var(--blue-900);
   --btn-bg-color: white;
   --bar-bg-color: white;
+  --score-bg-color: white;
 }
 
 html:has(.dark-toggle input:checked) {
@@ -108,6 +113,7 @@ html:has(.dark-toggle input:checked) {
   --text-color: white;
   --btn-bg-color: var(--blue-850);
   --bar-bg-color: var(--blue-850);
+  --score-bg-color: var(--blue-850);
 }
 
 header {
@@ -118,7 +124,7 @@ header {
   align-items: center;
 }
 .quiz-container {
-  padding-inline: 24px; /*needs t be rwworked*/
+  padding-inline: 24px; /*needs to be rwworked*/
 }
 
 /* think of better ways to manage width*/
@@ -308,6 +314,32 @@ header {
     block-size: 8px;
     width: 50%;
     background-color: var(--purple-600);
+  }
+}
+
+.score-container .submit-btn {
+  margin-block-start: var(--fluid-16-32);
+}
+
+.score-card {
+  padding: var(--fluid-32-48);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--fluid-16-40);
+  text-align: center;
+  background-color: var(--score-bg-color);
+  border-radius: 12px;
+}
+
+.score {
+  & p:first-of-type {
+    font-size: var(--fluid-88-144);
+    font-weight: var(--font-weight-medium);
+  }
+  & p:last-of-type {
+    font-size: var(--fluid-18-24);
+    margin-block-start: 1rem;
   }
 }
 

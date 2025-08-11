@@ -17,10 +17,8 @@
     <main>
       <article class="quiz-container">
         <header>
-          <div class="logo icon icon-css">
-            <!-- category- container -->
-            <p>Accessibility</p>
-          </div>
+          <p class="logo icon icon-css">Accessibility</p>
+
           <div class="dark-toggle">
             <!-- light/dark -->
 
@@ -30,7 +28,7 @@
           </div>
         </header>
         <div class="main-container">
-          <div class="info-container">
+          <div class="info-container" style="display: none">
             <!-- info container -->
             <div class="welcome-card">
               <!-- title card -->
@@ -81,7 +79,7 @@
                 <span>Accessibility</span>
               </button>
             </div>
-            <div class="btn-container">
+            <div class="btn-container" style="display: none">
               <!-- answers -->
 
               <label class="icon-btn option-btn icon icon-data" data-icon="A">
@@ -108,11 +106,13 @@
               </label>
               <button>Submit Answer</button>
             </div>
-            <div style="display: none">
-              <div>
-                <p>Accessibility</p>
-                <p>8</p>
-                <p>out of 10</p>
+            <div class="score-container">
+              <div class="score-card">
+                <p class="logo icon icon-accessibility">Accessibility</p>
+                <div class="score">
+                  <p>8</p>
+                  <p>out of 10</p>
+                </div>
               </div>
               <button class="submit-btn">Play Again</button>
             </div>
