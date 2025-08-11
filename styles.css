@@ -88,6 +88,7 @@ img {
   --fluid-16-40: clamp(1rem, -0.4313rem + 6.1069vw, 2.5rem);
   --fluid-88-144: clamp(5.5rem, 2.1603rem + 14.2494vw, 9rem);
   --fluid-18-24: clamp(1.125rem, 0.7672rem + 1.5267vw, 1.5rem);
+  --fluid-16-83: clamp(1rem, -0.4745rem + 6.2911vw, 5.1875rem);
 }
 
 body {
@@ -104,6 +105,7 @@ html {
   --btn-bg-color: white;
   --bar-bg-color: white;
   --score-bg-color: white;
+  --error-color: var(--red-500);
 }
 
 html:has(.dark-toggle input:checked) {
@@ -114,40 +116,41 @@ html:has(.dark-toggle input:checked) {
   --btn-bg-color: var(--blue-850);
   --bar-bg-color: var(--blue-850);
   --score-bg-color: var(--blue-850);
+  --error-color: white;
 }
 
 header {
   display: flex;
   justify-content: space-between;
-  padding-block: 16px;
 
   align-items: center;
 }
 .quiz-container {
-  padding-inline: 24px; /*needs to be rwworked*/
+  margin: 0 auto;
+  padding-inline: var(--fluid-16-32);
+  max-inline-size: 640px;
+  margin-block-start: var(--fluid-16-83);
 }
 
-/* think of better ways to manage width*/
-.info-container {
-  width: 100%;
-}
-
+.info-container,
 .content-container {
-  width: 100%;
+  flex: 1;
 }
 
 .main-container {
   display: flex;
   flex-direction: column;
   gap: var(--fluid-40-64);
-
-  padding-block-start: 32px;
+  margin-block-start: 48px;
 }
 
 .btn-container {
   width: 100%;
-  & > * + * {
+  & > * + label {
     margin-block-start: var(--fluid-16-24);
+  }
+  & button {
+    margin-block-start: var(--fluid-16-32);
   }
 }
 
@@ -249,7 +252,7 @@ h1 {
     appearance: none;
     position: absolute;
   }
-  &:not(:has(input:disabled), .correct, .false) {
+  &:not(:has(input:disabled)) {
     &:has(input:checked) {
       --icon-color: var(--purple-600);
       --data-color: white;
@@ -259,7 +262,7 @@ h1 {
     }
   }
 
-  &:is(.correct, .false) {
+  &:is(.icon-correct, .icon-false) {
     &::after {
       content: "";
       margin-left: auto;
@@ -268,17 +271,23 @@ h1 {
       background: var(--answer-icon) center no-repeat;
     }
   }
-  &.correct {
-    --icon-color: var(--green-500);
-    --option-out-color: var(--green-500);
-    --data-color: white;
+  &.icon-correct {
     --answer-icon: url("assets/images/icon-correct.svg");
   }
-  &.false {
+  &.icon-false {
+    --answer-icon: url("assets/images/icon-incorrect.svg");
+  }
+  &.outline-false {
+    outline: solid 3px var(--red-500);
     --icon-color: var(--red-500);
     --option-out-color: var(--red-500);
     --data-color: white;
-    --answer-icon: url("assets/images/icon-incorrect.svg");
+  }
+
+  &.outline-correct {
+    --icon-color: var(--green-500);
+    --option-out-color: var(--green-500);
+    --data-color: white;
   }
 }
 
@@ -389,6 +398,25 @@ h1 {
   }
 }
 
+.error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  color: var(--error-color);
+  margin-block-start: var(--fluid-16-32);
+  font-size: var(--fluid-18-24);
+
+  &::before {
+    content: "";
+    display: inline-block;
+    inline-size: var(--fluid-32-40);
+    block-size: var(--fluid-32-40);
+    background: url("assets/images/icon-error.svg") no-repeat;
+    background-size: contain;
+  }
+}
+
 @media (min-width: 768px) {
   html {
     --bg-img: var(--bg-tablet-light);
@@ -399,7 +427,7 @@ h1 {
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1164px) {
   html {
     --bg-img: var(--bg-desktop-light);
   }
@@ -410,15 +438,26 @@ h1 {
 
   .quiz-container {
     max-width: 1157px;
+    padding: 0;
+  }
+
+  .content-container {
+    min-width: 564px;
   }
 
   .main-container {
     flex-direction: row;
+    margin-block-start: 85px;
+    justify-content: space-between;
+    gap: 128px;
   }
 
-  .content-container {
-    max-inline-size: 564px;
+  .btn-container {
+    & > * + label {
+      margin-block-start: 16px;
+    }
   }
+
   .welcome-card p {
     margin-block-start: 48px;
   }

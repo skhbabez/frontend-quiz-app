@@ -35,7 +35,7 @@
               <h1>Welcome to the <span>Frontend Quiz!</span></h1>
               <p>Pick a subject to get started.</p>
             </div>
-            <div class="question-container" style="display: none">
+            <div class="question-container">
               <p>Question 6 of 10</p>
               <p>
                 Which of these color contrast ratios defines the minimum WCAG
@@ -43,24 +43,12 @@
               </p>
               <div class="progress-bar"></div>
             </div>
-            <div>
-              <!-- question-info -->
-              <div>
-                <!-- progress-numeric -->
-              </div>
-              <p>
-                <!-- question text -->
-              </p>
-              <div>
-                <!-- progress-bar -->
-              </div>
-            </div>
 
             <!-- completed -->
-            <h1>
+            <!-- <h1>
               Quiz completed
               <span>You scored...</span>
-            </h1>
+            </h1> -->
 
             <!--  -->
           </div>
@@ -82,34 +70,38 @@
                 <span>Accessibility</span>
               </button>
             </div>
-            <div class="btn-container" style="display: none">
+            <div class="btn-container">
               <!-- answers -->
 
-              <label class="icon-btn option-btn icon icon-data" data-icon="A">
+              <label
+                class="icon-btn option-btn icon icon-data icon-correct outline-correct"
+                data-icon="A"
+              >
                 <span>4,5:1</span>
                 <input disabled type="radio" name="answer" />
               </label>
               <label
-                class="icon-btn option-btn icon icon-data correct"
+                class="icon-btn option-btn icon icon-data icon-correct"
                 data-icon="B"
               >
                 <span>4,5:1</span>
                 <input disabled type="radio" name="answer" />
               </label>
               <label
-                class="icon-btn option-btn icon icon-data false"
+                class="icon-btn option-btn icon icon-data icon-false outline-false"
                 data-icon="C"
               >
                 <span>4,5:1</span>
-                <input type="radio" name="answer" />
+                <input disabled type="radio" name="answer" />
               </label>
               <label class="icon-btn option-btn icon icon-data" data-icon="D">
                 <span>4,5:1</span>
                 <input type="radio" name="answer" />
               </label>
-              <button>Submit Answer</button>
+              <button class="submit-btn">Submit Answer</button>
+              <p class="error">Please select an answer</p>
             </div>
-            <div class="score-container">
+            <div class="score-container" style="display: none">
               <div class="score-card">
                 <p class="logo icon icon-accessibility">Accessibility</p>
                 <div class="score">
