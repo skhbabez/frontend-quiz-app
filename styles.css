@@ -140,7 +140,7 @@ header {
 .main-container {
   display: flex;
   flex-direction: column;
-  gap: var(--fluid-40-64);
+  gap: 40px;
   margin-block-start: 48px;
 }
 
@@ -299,7 +299,7 @@ h1 {
   & p:last-of-type {
     font-size: var(--fluid-20-36);
     font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    line-height: 1.2;
     margin-block-start: var(--fluid-16-24);
   }
   & .progress-bar {
@@ -424,6 +424,9 @@ h1 {
 
   html:has(.dark-toggle input:checked) {
     --bg-img: var(--bg-tablet-dark);
+  }
+  .quiz-container {
+    padding: 0;
   }
 }
 
