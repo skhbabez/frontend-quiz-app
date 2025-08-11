@@ -193,22 +193,20 @@ header {
     color: var(--data-color, var(--grey-500));
   }
 }
+h1 {
+  font-size: var(--fluid-40-64);
+  font-weight: var(--font-weight-light);
+  & span {
+    display: block;
+    font-weight: var(--font-weight-medium);
+  }
+}
 
-.welcome-card {
-  & h1 {
-    font-size: var(--fluid-40-64);
-    font-weight: var(--font-weight-light);
-    & span {
-      display: block;
-      font-weight: var(--font-weight-medium);
-    }
-  }
-  & p {
-    font-style: italic;
-    line-height: 1.5;
-    font-size: var(--fluid-14-20);
-    margin-block-start: 16px; /* for destop media query with 48px*/
-  }
+.welcome-card p {
+  font-style: italic;
+  line-height: 1.5;
+  font-size: var(--fluid-14-20);
+  margin-block-start: 16px; /* for desktop media query with 48px*/
 }
 
 .submit-btn {

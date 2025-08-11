@@ -28,14 +28,14 @@
           </div>
         </header>
         <div class="main-container">
-          <div class="info-container" style="display: none">
+          <div class="info-container">
             <!-- info container -->
-            <div class="welcome-card">
+            <div class="welcome-card" style="display: none">
               <!-- title card -->
               <h1>Welcome to the <span>Frontend Quiz!</span></h1>
               <p>Pick a subject to get started.</p>
             </div>
-            <div class="question-container">
+            <div class="question-container" style="display: none">
               <p>Question 6 of 10</p>
               <p>
                 Which of these color contrast ratios defines the minimum WCAG
@@ -55,11 +55,14 @@
                 <!-- progress-bar -->
               </div>
             </div>
-            <div style="display: none">
-              <!-- completed -->
-              <p>Quiz completed</p>
-              <p>You scored...</p>
-            </div>
+
+            <!-- completed -->
+            <h1>
+              Quiz completed
+              <span>You scored...</span>
+            </h1>
+
+            <!--  -->
           </div>
           <div class="content-container">
             <!-- quiz container -->
