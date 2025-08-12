@@ -166,37 +166,30 @@ header {
 }
 
 .icon {
-  &::before {
-    content: "";
-    display: block;
-    block-size: var(--label-size);
-    inline-size: var(--label-size);
-    border-radius: 4px;
-    background: var(--icon-label) no-repeat center/71.43%;
-    background-color: var(--icon-color);
+  background-color: var(--icon-color);
+  border-radius: 4px;
+  inline-size: var(--label-size);
+  block-size: var(--label-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--option-color, var(--grey-500));
+  & img {
+    inline-size: 71.43%;
+    block-size: 100%;
   }
+
   &.icon-accessibility {
     --icon-color: var(--purple-100);
-    --icon-label: url("assets/images/icon-accessibility.svg");
   }
   &.icon-css {
     --icon-color: var(--green-100);
-    --icon-label: url("assets/images/icon-css.svg");
   }
   &.icon-html {
     --icon-color: var(--orange-50);
-    --icon-label: url("assets/images/icon-html.svg");
   }
   &.icon-javascript {
     --icon-color: var(--blue-50);
-    --icon-label: url("assets/images/icon-js.svg");
-  }
-  &.icon-data::before {
-    content: attr(data-icon raw-string, "B");
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--data-color, var(--grey-500));
   }
 }
 h1 {
@@ -274,7 +267,7 @@ h1 {
   &:not(:has(input:disabled)) {
     &:has(input:checked) {
       --icon-color: var(--purple-600);
-      --data-color: white;
+      --option-color: white;
     }
     &:has(input:focus, input:hover) {
       --option-out-color: var(--purple-600);
@@ -300,13 +293,13 @@ h1 {
     outline: solid 3px var(--red-500);
     --icon-color: var(--red-500);
     --option-out-color: var(--red-500);
-    --data-color: white;
+    --option-color: white;
   }
 
   &.outline-correct {
     --icon-color: var(--green-500);
     --option-out-color: var(--green-500);
-    --data-color: white;
+    --option-color: white;
   }
 }
 

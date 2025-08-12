@@ -40,9 +40,24 @@ class Quiz {
   }
 
   setLogoCategory(category) {
-    this.logo.textContent = category;
-    this.logo.className = "";
-    this.logo.classList.add("logo", "icon", `icon-${category}`);
+    const { name, url } = category;
+    this.logo.innerHTML = "";
+    const label = this.createLabel(name, url);
+    this.logo.innerHTML = "";
+    this.logo.appendChild(label);
+    const text = document.createElement("span");
+    text.textContent = name;
+    this.logo.appendChild(text);
+  }
+
+  createLabel(color, url) {
+    const label = document.createElement("span");
+    label.classList.add("icon", `icon-${color}`);
+    const img = document.createElement("img");
+    img.setAttribute("src", url);
+    img.setAttribute("alt", "");
+    label.appendChild(img);
+    return label;
   }
 
   showCategorySelection() {
@@ -50,11 +65,14 @@ class Quiz {
     categorySelection.classList.add("btn-container", "categories");
 
     const createSelector = (category) => {
+      const { name, url } = category;
+      const label = this.createLabel(name, url);
       const button = document.createElement("button");
-      button.classList.add("icon-btn", "icon", `icon-${category}`);
+      button.classList.add("icon-btn");
       button.setAttribute("type", "button");
       const buttonText = document.createElement("span");
-      buttonText.appendChild(document.createTextNode(category));
+      buttonText.appendChild(document.createTextNode(name));
+      button.appendChild(label);
       button.appendChild(buttonText);
       button.addEventListener("click", () => this.runQuiz(category));
       return button;
@@ -91,12 +109,15 @@ class Quiz {
   }
 
   extractCategories() {
-    return this.quizzes.map((quiz) => quiz.title.toLowerCase());
+    return this.quizzes.map((quiz) => ({
+      name: quiz.title.toLowerCase(),
+      url: quiz.icon,
+    }));
   }
 
   getQuestions(category) {
     return this.quizzes.filter(
-      (quiz) => quiz.title.toLowerCase() === category.toLowerCase()
+      (quiz) => quiz.title.toLowerCase() === category.name.toLowerCase()
     )[0].questions;
   }
 }
