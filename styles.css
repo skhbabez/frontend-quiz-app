@@ -160,6 +160,7 @@ header {
   display: flex;
   align-items: center;
   gap: 16px;
+  text-transform: capitalize;
   font-weight: var(--font-weight-medium);
   font-size: var(--fluid-18-28);
 }
@@ -249,6 +250,17 @@ h1 {
   border-radius: var(--fluid-12-24);
   box-shadow: var(--shadow);
   inline-size: 100%;
+  text-transform: capitalize;
+}
+
+.categories {
+  & button {
+    outline: none;
+    transition: all 100ms ease-in-out;
+    &:is(:hover, :focus-visible) {
+      transform: scale(1.025) translatey(-0.25rem) translateX(-0.25rem);
+    }
+  }
 }
 
 .option-btn {

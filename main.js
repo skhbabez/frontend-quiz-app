@@ -1,3 +1,4 @@
+"use strict";
 const url = "data.json";
 
 class Quiz {
@@ -8,14 +9,26 @@ class Quiz {
 
   initializeQuiz() {
     this.categories = this.extractCategories(this.quizzes);
-    console.log(this.categories);
     this.logo = document.getElementById("logo");
     this.infoContainer = document.getElementById("info-container");
+    this.contentContainer = document.getElementById("content-container");
     this.hideLogo();
+    this.start();
   }
+
   start() {
     this.showCategorySelection();
     this.showWelcomeCard();
+  }
+
+  runQuiz(category) {
+    this.questions = this.getQuestions(category);
+    this.category = category;
+    console.log(this.questions);
+    this.setLogoCategory(category);
+    this.showLogo();
+    this.emptyInfoContainer();
+    this.emptyContentContainer();
   }
 
   hideLogo() {
@@ -28,15 +41,28 @@ class Quiz {
 
   setLogoCategory(category) {
     this.logo.textContent = category;
-    this.logo.classList.add(`icon-${category}`);
+    this.logo.className = "";
+    this.logo.classList.add("logo", "icon", `icon-${category}`);
   }
 
   showCategorySelection() {
     const categorySelection = document.createElement("div");
-    categorySelection.classList.add("btn-container");
-    const createSelector = (categories) => {
+    categorySelection.classList.add("btn-container", "categories");
+
+    const createSelector = (category) => {
       const button = document.createElement("button");
+      button.classList.add("icon-btn", "icon", `icon-${category}`);
+      button.setAttribute("type", "button");
+      const buttonText = document.createElement("span");
+      buttonText.appendChild(document.createTextNode(category));
+      button.appendChild(buttonText);
+      button.addEventListener("click", () => this.runQuiz(category));
+      return button;
     };
+    this.categories.forEach((category) => {
+      categorySelection.appendChild(createSelector(category));
+    });
+    this.contentContainer.appendChild(categorySelection);
   }
 
   showWelcomeCard() {
@@ -56,17 +82,22 @@ class Quiz {
     this.infoContainer.appendChild(welcomeCard);
   }
 
-  extractCategories() {
-    return this.quizzes.map((quiz) => ({
-      title: quiz.title.toLowerCase(),
-      icon: quiz.icon,
-    }));
+  emptyInfoContainer() {
+    this.infoContainer.innerHTML = "";
   }
 
-  getQuiz(category) {
+  emptyContentContainer() {
+    this.contentContainer.innerHTML = "";
+  }
+
+  extractCategories() {
+    return this.quizzes.map((quiz) => quiz.title.toLowerCase());
+  }
+
+  getQuestions(category) {
     return this.quizzes.filter(
       (quiz) => quiz.title.toLowerCase() === category.toLowerCase()
-    );
+    )[0].questions;
   }
 }
 
@@ -86,7 +117,6 @@ const init = async () => {
   const questions = await fetchQuestions();
   console.log(questions);
   const quiz = new Quiz(questions.quizzes);
-  quiz.start();
 };
 
 init();
