@@ -247,7 +247,7 @@ h1 {
   color: inherit;
   padding: var(--fluid-16-24); /*maybe mediaquery instead*/
   border-radius: var(--fluid-12-24);
-  box-shadow: var(shadow);
+  box-shadow: var(--shadow);
   inline-size: 100%;
 }
 
@@ -428,6 +428,10 @@ h1 {
     background: url("assets/images/icon-error.svg") no-repeat;
     background-size: contain;
   }
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 @media (min-width: 768px) {
