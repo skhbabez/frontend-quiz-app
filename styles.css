@@ -305,6 +305,9 @@ h1 {
 
 .question-container {
   margin-block-end: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--fluid-24-40);
   & p:first-of-type {
     font-style: italic;
     font-size: var(--fluid-14-20);
@@ -315,20 +318,15 @@ h1 {
     line-height: 1.2;
     margin-block-start: var(--fluid-16-24);
   }
-  & .progress-bar {
-    margin-block-start: var(--fluid-24-40);
-  }
 }
 
 .progress-bar {
   block-size: 16px;
   background-color: var(--bar-bg-color);
   border-radius: 999px;
-
   align-items: center;
   padding: 4px;
-  &::before {
-    content: "";
+  & div {
     border-radius: 104px;
     display: block;
     block-size: 8px;
@@ -471,7 +469,6 @@ h1 {
     flex-direction: row;
     margin-block-start: 85px;
     justify-content: space-between;
-    /* gap: 128px; */
   }
 
   .btn-container {
@@ -483,8 +480,11 @@ h1 {
   .welcome-card p {
     margin-block-start: 48px;
   }
-  .question-container .progress-bar {
-    /* still need better option for dektop*/
-    margin-block-start: 184px;
+  .question-container {
+    min-block-size: 472px;
+    margin-block-end: 3px;
+  }
+  .progress-bar {
+    margin-block-start: auto;
   }
 }

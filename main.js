@@ -2,13 +2,25 @@
 const url = "data.json";
 
 class Quiz {
+  #categories;
+  #currentQuestion = 0;
+  #category;
+  #questions;
+  #quizzes;
+  logo;
+  infoContainer;
+  contentContainer;
+  questionText;
+  questionCount;
+  progressBar;
+
   constructor(quizzes) {
-    this.quizzes = quizzes;
+    this.#quizzes = quizzes;
     this.initializeQuiz();
   }
 
   initializeQuiz() {
-    this.categories = this.extractCategories(this.quizzes);
+    this.#categories = this.extractCategories(this.#quizzes);
     this.logo = document.getElementById("logo");
     this.infoContainer = document.getElementById("info-container");
     this.contentContainer = document.getElementById("content-container");
@@ -17,18 +29,46 @@ class Quiz {
   }
 
   start() {
+    this.emptyContentContainer();
+    this.emptyInfoContainer();
     this.showCategorySelection();
     this.showWelcomeCard();
   }
 
   runQuiz(category) {
-    this.questions = this.getQuestions(category);
-    this.category = category;
-    console.log(this.questions);
+    this.#questions = this.getQuestions(category);
+    this.#category = category;
+    this.#currentQuestion = 0;
+    console.log(this.#questions);
     this.setLogoCategory(category);
     this.showLogo();
     this.emptyInfoContainer();
     this.emptyContentContainer();
+    this.questionContainer = document.createElement("div");
+    this.questionContainer.classList.add("question-container");
+    const content = document.createElement("div");
+    this.questionCount = document.createElement("p");
+    this.questionText = document.createElement("p");
+    content.appendChild(this.questionCount);
+    content.appendChild(this.questionText);
+    this.questionContainer.appendChild(content);
+    const progressBarWrapper = document.createElement("div");
+    this.progressBar = document.createElement("div");
+    progressBarWrapper.classList.add("progress-bar");
+    progressBarWrapper.appendChild(this.progressBar);
+    this.questionContainer.appendChild(progressBarWrapper);
+    this.infoContainer.appendChild(this.questionContainer);
+    this.showQuestion(0);
+  }
+
+  showQuestion(index) {
+    const current = index + 1;
+    const remaining = this.#questions.length;
+    const text = this.#questions[index].question;
+    this.questionCount.textContent = `Question ${current} of ${remaining}`;
+    this.questionText.textContent = text;
+    const progress = (current / remaining) * 100;
+    this.progressBar.style = `width: ${progress}%`;
   }
 
   hideLogo() {
@@ -71,13 +111,13 @@ class Quiz {
       button.classList.add("icon-btn");
       button.setAttribute("type", "button");
       const buttonText = document.createElement("span");
-      buttonText.appendChild(document.createTextNode(name));
+      buttonText.textContent = name;
       button.appendChild(label);
       button.appendChild(buttonText);
       button.addEventListener("click", () => this.runQuiz(category));
       return button;
     };
-    this.categories.forEach((category) => {
+    this.#categories.forEach((category) => {
       categorySelection.appendChild(createSelector(category));
     });
     this.contentContainer.appendChild(categorySelection);
@@ -87,15 +127,13 @@ class Quiz {
     const welcomeCard = document.createElement("div");
     welcomeCard.classList.add("welcome-card");
     const heading = document.createElement("h1");
-    heading.appendChild(document.createTextNode("Welcome to the"));
+    heading.textContent = "Welcome to the";
     const subTitle = document.createElement("span");
-    subTitle.appendChild(document.createTextNode("Frontend Quiz!"));
+    subTitle.textContent = "Frontend Quiz!";
     heading.appendChild(subTitle);
     welcomeCard.appendChild(heading);
     const paragraph = document.createElement("p");
-    paragraph.appendChild(
-      document.createTextNode("Pick a subject to get started.")
-    );
+    paragraph.textContent = "Pick a subject to get started.";
     welcomeCard.appendChild(paragraph);
     this.infoContainer.appendChild(welcomeCard);
   }
@@ -109,14 +147,14 @@ class Quiz {
   }
 
   extractCategories() {
-    return this.quizzes.map((quiz) => ({
+    return this.#quizzes.map((quiz) => ({
       name: quiz.title.toLowerCase(),
       url: quiz.icon,
     }));
   }
 
   getQuestions(category) {
-    return this.quizzes.filter(
+    return this.#quizzes.filter(
       (quiz) => quiz.title.toLowerCase() === category.name.toLowerCase()
     )[0].questions;
   }
