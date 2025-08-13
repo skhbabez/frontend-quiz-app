@@ -1,5 +1,6 @@
 "use strict";
 const url = "data.json";
+let quiz = null;
 
 class Quiz {
   #categories;
@@ -44,6 +45,7 @@ class Quiz {
     this.showLogo();
     this.emptyInfoContainer();
     this.emptyContentContainer();
+    // create question container
     this.questionContainer = document.createElement("div");
     this.questionContainer.classList.add("question-container");
     const content = document.createElement("div");
@@ -58,18 +60,81 @@ class Quiz {
     progressBarWrapper.appendChild(this.progressBar);
     this.questionContainer.appendChild(progressBarWrapper);
     this.infoContainer.appendChild(this.questionContainer);
+    this.answerContainer = document.createElement("form");
+    this.answerContainer.classList.add("btn-container");
+    this.answerContainer.noValidate = true;
+    this.contentContainer.appendChild(this.answerContainer);
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      const data = new FormData(event.target);
+      const result = data.get("answer");
+      if (!result) {
+        this.showError();
+      }
+      console.log(result);
+    };
+    this.answerContainer.addEventListener("submit", handleSubmit);
     this.showQuestion(0);
   }
 
+  showError() {
+    const error = document.createElement("p");
+    error.classList.add("error");
+    error.textContent = "Please select an answer";
+    this.answerContainer.appendChild(error);
+  }
+
+  createAnswers(options, selectedOption = "") {
+    return options.map((option, index) => {
+      const letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(index);
+      const label = document.createElement("label");
+      label.classList.add("icon-btn", "option-btn");
+      const icon = document.createElement("span");
+      icon.classList.add("icon");
+      icon.textContent = letter;
+      const text = document.createElement("span");
+      text.textContent = option;
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "answer";
+      input.value = option;
+      input.id = "answer-" + letter;
+      label.appendChild(icon);
+      label.appendChild(text);
+      label.appendChild(input);
+      return label;
+    });
+  }
+
   showQuestion(index) {
+    const question = this.#questions[index];
     const current = index + 1;
     const remaining = this.#questions.length;
-    const text = this.#questions[index].question;
+    const text = question.question;
+    const options = question.options;
     this.questionCount.textContent = `Question ${current} of ${remaining}`;
     this.questionText.textContent = text;
     const progress = (current / remaining) * 100;
     this.progressBar.style = `width: ${progress}%`;
+    this.createAnswers(options).forEach((option) => {
+      this.answerContainer.appendChild(option);
+    });
+    const submitBtn = document.createElement("button");
+    submitBtn.classList.add("submit-btn");
+    submitBtn.textContent = "Submit Answer";
+    submitBtn.type = "submit";
+    this.answerContainer.appendChild(submitBtn);
   }
+
+  showAnswered() {}
+
+  //   <div class="btn-container">
+  // <label class="icon-btn option-btn icon-correct outline-correct">
+  //   <span class="icon"> A </span>
+  //   <span>4,5:1</span>
+  //   <input disabled type="radio" name="answer" />
+  // </label>
 
   hideLogo() {
     this.logo.classList.add("hidden");
@@ -175,7 +240,7 @@ const fetchQuestions = async () => {
 const init = async () => {
   const questions = await fetchQuestions();
   console.log(questions);
-  const quiz = new Quiz(questions.quizzes);
+  quiz = new Quiz(questions.quizzes);
 };
 
 init();

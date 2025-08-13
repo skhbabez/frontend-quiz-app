@@ -168,6 +168,7 @@ header {
 .icon {
   background-color: var(--icon-color);
   border-radius: 4px;
+  flex-shrink: 0;
   inline-size: var(--label-size);
   block-size: var(--label-size);
   display: flex;
@@ -469,6 +470,7 @@ h1 {
     flex-direction: row;
     margin-block-start: 85px;
     justify-content: space-between;
+    gap: 128px;
   }
 
   .btn-container {
