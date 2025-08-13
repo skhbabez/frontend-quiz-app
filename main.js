@@ -1,4 +1,5 @@
 "use strict";
+
 const url = "data.json";
 let quiz = null;
 
@@ -8,12 +9,15 @@ class Quiz {
   #category;
   #questions;
   #quizzes;
+  #noQuestions;
+  #correctAnswers;
   logo;
   infoContainer;
   contentContainer;
   questionText;
   questionCount;
   progressBar;
+  answerContainer;
 
   constructor(quizzes) {
     this.#quizzes = quizzes;
@@ -25,7 +29,6 @@ class Quiz {
     this.logo = document.getElementById("logo");
     this.infoContainer = document.getElementById("info-container");
     this.contentContainer = document.getElementById("content-container");
-    this.hideLogo();
     this.start();
   }
 
@@ -34,13 +37,15 @@ class Quiz {
     this.emptyInfoContainer();
     this.showCategorySelection();
     this.showWelcomeCard();
+    this.hideLogo();
   }
 
   runQuiz(category) {
     this.#questions = this.getQuestions(category);
     this.#category = category;
     this.#currentQuestion = 0;
-    console.log(this.#questions);
+    this.#correctAnswers = 0;
+    this.#noQuestions = this.#questions.length;
     this.setLogoCategory(category);
     this.showLogo();
     this.emptyInfoContainer();
@@ -60,36 +65,82 @@ class Quiz {
     progressBarWrapper.appendChild(this.progressBar);
     this.questionContainer.appendChild(progressBarWrapper);
     this.infoContainer.appendChild(this.questionContainer);
-    this.answerContainer = document.createElement("form");
-    this.answerContainer.classList.add("btn-container");
-    this.answerContainer.noValidate = true;
-    this.contentContainer.appendChild(this.answerContainer);
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      const data = new FormData(event.target);
-      const result = data.get("answer");
-      if (!result) {
-        this.showError();
-      }
-      console.log(result);
-    };
-    this.answerContainer.addEventListener("submit", handleSubmit);
+    // this.answerContainer = document.createElement("form");
+    // this.answerContainer.classList.add("btn-container");
+    // this.answerContainer.noValidate = true;
+    // this.contentContainer.appendChild(this.answerContainer);
+
     this.showQuestion(0);
   }
 
-  showError() {
-    const error = document.createElement("p");
-    error.classList.add("error");
-    error.textContent = "Please select an answer";
-    this.answerContainer.appendChild(error);
+  finishQuiz() {
+    this.emptyContentContainer();
+    this.emptyInfoContainer();
+    this.showCompleteContainer();
+    this.showScoreContainer();
   }
 
-  createAnswers(options, selectedOption = "") {
+  showCompleteContainer() {
+    const container = document.createElement("div");
+    container.classList.add("complete-container");
+    const heading = document.createElement("h1");
+    heading.textContent = "Quiz completed";
+    const subTitle = document.createElement("span");
+    subTitle.textContent = "You scored...";
+    heading.appendChild(subTitle);
+    container.appendChild(heading);
+    this.infoContainer.appendChild(container);
+  }
+
+  showScoreContainer() {
+    const { name, url } = this.#category;
+    const container = document.createElement("div");
+    container.classList.add("score-container");
+    const scoreCard = document.createElement("div");
+    scoreCard.classList.add("score-card");
+    container.appendChild(scoreCard);
+    const logo = document.createElement("p");
+    logo.classList.add("logo");
+    const label = this.createLabel(name, url);
+    logo.appendChild(label);
+    logo.appendChild(document.createTextNode(name));
+    scoreCard.appendChild(logo);
+    this.contentContainer.appendChild(container);
+    const score = document.createElement("div");
+    score.classList.add("score");
+    scoreCard.appendChild(score);
+    const scoreCount = document.createElement("p");
+    const questionCount = document.createElement("p");
+    score.appendChild(scoreCount);
+    score.appendChild(questionCount);
+    scoreCount.textContent = this.#correctAnswers;
+    questionCount.textContent = `out of ${this.#noQuestions}`;
+    const submitButton = document.createElement("button");
+    submitButton.classList.add("submit-btn");
+    submitButton.textContent = "Play Again";
+    container.appendChild(submitButton);
+    submitButton.addEventListener("click", () => {
+      this.start();
+    });
+  }
+
+  showError() {
+    let error = this.answerContainer.querySelectorAll(".error");
+    if (error.length == 0) {
+      error = document.createElement("p");
+      error.classList.add("error");
+      error.textContent = "Please select an answer";
+      this.answerContainer.appendChild(error);
+    }
+  }
+
+  createAnswers(options, correctOption = "", selectedOption = "") {
     return options.map((option, index) => {
       const letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(index);
       const label = document.createElement("label");
       label.classList.add("icon-btn", "option-btn");
+      label.classList.add();
       const icon = document.createElement("span");
       icon.classList.add("icon");
       icon.textContent = letter;
@@ -103,6 +154,22 @@ class Quiz {
       label.appendChild(icon);
       label.appendChild(text);
       label.appendChild(input);
+      if (selectedOption && correctOption) {
+        let classes = [];
+        if (correctOption === option) {
+          classes.push("icon-correct");
+        }
+        if (correctOption === selectedOption && selectedOption === option) {
+          classes.push("outline-correct");
+        }
+
+        if (selectedOption !== correctOption && selectedOption === option) {
+          classes.push("outline-false");
+          classes.push("icon-false");
+        }
+        input.disabled = true;
+        label.classList.add(...classes);
+      }
       return label;
     });
   }
@@ -110,31 +177,67 @@ class Quiz {
   showQuestion(index) {
     const question = this.#questions[index];
     const current = index + 1;
-    const remaining = this.#questions.length;
+    const remaining = this.#noQuestions;
     const text = question.question;
     const options = question.options;
+    this.answerContainer = document.createElement("form");
+    this.answerContainer.classList.add("btn-container");
+    this.answerContainer.noValidate = true;
+
+    this.createAnswers(options).forEach((option) => {
+      this.answerContainer.appendChild(option);
+    });
     this.questionCount.textContent = `Question ${current} of ${remaining}`;
     this.questionText.textContent = text;
     const progress = (current / remaining) * 100;
     this.progressBar.style = `width: ${progress}%`;
-    this.createAnswers(options).forEach((option) => {
-      this.answerContainer.appendChild(option);
-    });
     const submitBtn = document.createElement("button");
     submitBtn.classList.add("submit-btn");
     submitBtn.textContent = "Submit Answer";
     submitBtn.type = "submit";
     this.answerContainer.appendChild(submitBtn);
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      const data = new FormData(event.target);
+      const result = data.get("answer");
+      if (!result) {
+        this.showError();
+        return;
+      }
+      this.showAnswered(result);
+    };
+    this.answerContainer.addEventListener("submit", handleSubmit);
+    this.contentContainer.appendChild(this.answerContainer);
   }
 
-  showAnswered() {}
-
-  //   <div class="btn-container">
-  // <label class="icon-btn option-btn icon-correct outline-correct">
-  //   <span class="icon"> A </span>
-  //   <span>4,5:1</span>
-  //   <input disabled type="radio" name="answer" />
-  // </label>
+  showAnswered(selected) {
+    const question = this.#questions[this.#currentQuestion];
+    const correctOption = question.answer;
+    this.emptyContentContainer();
+    this.answerContainer = document.createElement("div");
+    this.answerContainer.classList.add("btn-container");
+    if (correctOption === selected) {
+      this.#correctAnswers++;
+    }
+    const options = question.options;
+    this.createAnswers(options, correctOption, selected).forEach((option) => {
+      this.answerContainer.appendChild(option);
+    });
+    const submitBtn = document.createElement("button");
+    submitBtn.classList.add("submit-btn");
+    submitBtn.textContent = "Next Question";
+    this.answerContainer.appendChild(submitBtn);
+    this.contentContainer.appendChild(this.answerContainer);
+    this.answerContainer.addEventListener("click", () => {
+      this.#currentQuestion++;
+      if (this.#currentQuestion < this.#noQuestions) {
+        this.answerContainer.innerHTML = "";
+        this.showQuestion(this.#currentQuestion);
+      } else {
+        this.finishQuiz();
+      }
+    });
+  }
 
   hideLogo() {
     this.logo.classList.add("hidden");
@@ -239,7 +342,6 @@ const fetchQuestions = async () => {
 
 const init = async () => {
   const questions = await fetchQuestions();
-  console.log(questions);
   quiz = new Quiz(questions.quizzes);
 };
 
