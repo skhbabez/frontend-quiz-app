@@ -18,7 +18,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* outline: red solid 1px; */
 }
 
 img {
@@ -131,7 +130,7 @@ header {
 .quiz-container {
   margin: 0 auto;
 
-  max-inline-size: 640px;
+  max-inline-size: 40rem;
   margin-block-start: var(--fluid-16-83);
 }
 
@@ -305,7 +304,7 @@ h1 {
 }
 
 .question-container {
-  margin-block-end: 40px;
+  margin-block-end: 2.5rem;
   display: flex;
   flex-direction: column;
   gap: var(--fluid-24-40);
@@ -322,15 +321,15 @@ h1 {
 }
 
 .progress-bar {
-  block-size: 16px;
+  block-size: 1rem;
   background-color: var(--bar-bg-color);
   border-radius: 999px;
   align-items: center;
-  padding: 4px;
+  padding: 0.25rem;
   & div {
-    border-radius: 104px;
+    border-radius: 6.5rem;
     display: block;
-    block-size: 8px;
+    block-size: 0.5rem;
     width: 50%;
     background-color: var(--purple-600);
   }
@@ -352,7 +351,7 @@ h1 {
   gap: var(--fluid-16-40);
   text-align: center;
   background-color: var(--score-bg-color);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   box-shadow: var(--shadow);
 }
 
@@ -399,7 +398,7 @@ h1 {
     display: block;
     inline-size: var(--toggle-width);
     block-size: var(--toggle-height);
-    border-radius: 16px;
+    border-radius: 1rem;
     background-color: var(--purple-600);
     padding: var(--toggle-padding);
 
@@ -458,24 +457,24 @@ h1 {
   }
 
   .quiz-container {
-    max-width: 1157px;
+    max-width: 72.3125rem;
     padding: 0;
   }
 
   .content-container {
-    min-width: 564px;
+    min-width: 35.25rem;
   }
 
   .main-container {
     flex-direction: row;
-    margin-block-start: 85px;
+    margin-block-start: 5.3125rem;
     justify-content: space-between;
-    gap: 128px;
+    gap: 8rem;
   }
 
   .btn-container {
     & > * + * {
-      margin-block-start: 16px;
+      margin-block-start: 1rem;
     }
   }
 
@@ -483,8 +482,8 @@ h1 {
     margin-block-start: 48px;
   }
   .question-container {
-    min-block-size: 472px;
-    margin-block-end: 3px;
+    min-block-size: 29.5rem;
+    margin-block-end: 0.1875rem;
   }
   .progress-bar {
     margin-block-start: auto;

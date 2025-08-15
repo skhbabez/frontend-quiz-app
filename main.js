@@ -50,7 +50,6 @@ class Quiz {
     this.showLogo();
     this.emptyInfoContainer();
     this.emptyContentContainer();
-    // create question container
     this.questionContainer = document.createElement("div");
     this.questionContainer.classList.add("question-container");
     const content = document.createElement("div");
@@ -65,11 +64,6 @@ class Quiz {
     progressBarWrapper.appendChild(this.progressBar);
     this.questionContainer.appendChild(progressBarWrapper);
     this.infoContainer.appendChild(this.questionContainer);
-
-    // this.answerContainer = document.createElement("form");
-    // this.answerContainer.classList.add("btn-container");
-    // this.answerContainer.noValidate = true;
-    // this.contentContainer.appendChild(this.answerContainer);
 
     this.showQuestion(0);
   }
@@ -102,7 +96,7 @@ class Quiz {
     container.appendChild(scoreCard);
     const logo = document.createElement("p");
     logo.classList.add("logo");
-    const label = this.createLabel(name, url);
+    const label = this.createLabel(url, name);
     logo.appendChild(label);
     logo.appendChild(document.createTextNode(name));
     scoreCard.appendChild(logo);
@@ -250,7 +244,7 @@ class Quiz {
   setLogoCategory(category) {
     const { name, url } = category;
     this.logo.innerHTML = "";
-    const label = this.createLabel(name, url);
+    const label = this.createLabel(url, name);
     this.logo.innerHTML = "";
     this.logo.appendChild(label);
     const text = document.createElement("span");
@@ -258,7 +252,7 @@ class Quiz {
     this.logo.appendChild(text);
   }
 
-  createLabel(color, url) {
+  createLabel(url, color = "accessibility") {
     const label = document.createElement("span");
     label.classList.add("icon", `icon-${color}`);
     const img = document.createElement("img");
@@ -274,7 +268,7 @@ class Quiz {
 
     const createSelector = (category) => {
       const { name, url } = category;
-      const label = this.createLabel(name, url);
+      const label = this.createLabel(url, name);
       const button = document.createElement("button");
       button.classList.add("icon-btn");
       button.setAttribute("type", "button");

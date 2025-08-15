@@ -12,11 +12,6 @@ This is a solution to the [Frontend quiz app challenge on Frontend Mentor](https
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -36,22 +31,19 @@ Users should be able to:
 - Navigate the entire app only using their keyboard
 - **Bonus**: Change the app's theme between light and dark
 
-### Screenshot
+### Screenshots
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![Welcome Screen](screenshots/desktop-welcome.png)
+![Quiz Answers](screenshots/desktop-answers.png)
+![Correct Answers](screenshots/desktop-answers-correct.png)
+![Error State](screenshots/desktop-answers-error.png)
+![Answer Feedback](screenshots/desktop-answers-false.png)
+![Final Score](screenshots/desktop-score.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/skhbabez/frontend-quiz-app/](https://github.com/skhbabez/frontend-quiz-app/)
+- Live Site URL: [https://skhbabez.github.io/frontend-quiz-app/](https://skhbabez.github.io/frontend-quiz-app/)
 
 ## My process
 
@@ -62,61 +54,41 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
+I feel I finally got a good grasp of how to make my css stylings more component based, using nested css selectors more meaningfully. I also managed to make my spacings and font sizes meaningfully responsive, makong better use of clamp. In javascript I decided to experiment with rendering using only the most basic api for a change, using create.Element. This was painful but extremely educational. I am somewhat proud of how I solved the dark light mode issue not having to utilize javascript. While this solution is probably not particularly backwards compatible, it was interesting too see what you can achieve with little modern css.
 
 ```css
-.proud-of-this-css {
-  color: papayawhip;
+html:has(.dark-toggle input:checked) {
+  --bg-img: var(--bg-mobile-dark);
+  /*omitted lines*/
 }
 ```
 
-```js
-const proudOfThisFunc = () => {
-  console.log("🎉");
-};
+```html
+<div class="dark-toggle">
+  <label>
+    <input type="checkbox" aria-label="turn on dark mode" />
+  </label>
+</div>
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+Initially I added the icons through css but realized the json was providing us with an image url. While my original solution felt a lot more elegant, it was not particularly dynamic. Adding the image trhough javascript ended up being easy enough and allowed for dynamic rendering.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```js
+
+  createLabel(url, color = "accessibility") {
+    const label = document.createElement("span");
+    label.classList.add("icon", `icon-${color}`);
+    const img = document.createElement("img");
+    img.setAttribute("src", url);
+    img.setAttribute("alt", "");
+    label.appendChild(img);
+    return label;
+  }
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
-
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
-
-## Author
-
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+I am not particularly happy with my javascript code as it ended up far too complicated. This experiment really showed me the value of frameworks like react. Next time I might try using templates instead, seeing if I can make my html more reusable without sacrificing readability and maintainability. Also I used a class mostly to just mess around with javascripts syntax but this was not really necessary for this project nor did it really add anything. I also want to try learning something like sass as wll as focus on modularizing my code more as these projects start becoming to big to have everything in a few files
